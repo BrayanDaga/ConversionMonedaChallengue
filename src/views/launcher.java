@@ -5,6 +5,27 @@ import javax.swing.JOptionPane;
 
 public class launcher {
 
+	static void initLauncher() {
+		String[] options = { "Conversor de Moneda", "Conversion de Temperatura" };
+
+		String optionSelMain = showOptionsDialog("Seleccione una opción de conversión", "Menu", options);
+
+		if (optionSelMain != null) {
+			switch (optionSelMain) {
+			case "Conversor de Moneda":
+
+				handleCurrencyConversion();
+
+				break;
+			case "Conversion de Temperatura":
+				JOptionPane.showMessageDialog(null, "En desarrollo...");
+				break;
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + optionSelMain);
+			}
+		}
+	}
+
 	static String showOptionsDialog(String message, String title, String[] options) {
 		return (String) JOptionPane.showInputDialog(null, message, title, JOptionPane.PLAIN_MESSAGE, null, options,
 				null);
@@ -12,7 +33,7 @@ public class launcher {
 
 	final static Double[] solesConvA = new Double[] { 0.27, 0.25, 0.21, 39.32, 361.01 };
 
-	final static	String[] currencyOptions = { "De Soles a Dólar", "De Soles a Euro", "De Soles a Libras", "De Soles a Yen",
+	final static String[] currencyOptions = { "De Soles a Dólar", "De Soles a Euro", "De Soles a Libras", "De Soles a Yen",
 			"De soles a Won Coreano", "De Dólar a Soles", "De Euro a Soles", "De Libras a Soles", "De Yen a Soles",
 			"De Won Coreano a Soles" };
 
@@ -91,6 +112,14 @@ public class launcher {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Valor no válido");
 		}
+		finally {
+			int canContinue =  JOptionPane.showConfirmDialog(null, "Deseas continuar?");
+			if(canContinue == 0) {
+				initLauncher();
+			}else {
+				JOptionPane.showMessageDialog(null, "Programa terminado");
+			}
+		}
 
 
 	}
@@ -101,25 +130,8 @@ public class launcher {
 
 	public static void main(String[] args) {
 
-		System.out.println(currencyOptions[0]);
-		String[] options = { "Conversor de Moneda", "Conversion de Temperatura" };
+		initLauncher();
 
-		String optionSelMain = showOptionsDialog("Seleccione una opción de conversión", "Menu", options);
-
-		if (optionSelMain != null) {
-			switch (optionSelMain) {
-			case "Conversor de Moneda":
-
-				handleCurrencyConversion();
-
-				break;
-			case "Conversion de Temperatura":
-				JOptionPane.showMessageDialog(null, "En desarrollo...");
-				break;
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + optionSelMain);
-			}
-		}
 
 	}
 }
