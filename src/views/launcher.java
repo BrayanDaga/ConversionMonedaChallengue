@@ -2,6 +2,7 @@ package views;
 
 import javax.swing.JOptionPane;
 
+
 public class launcher {
 
 	static String showOptionsDialog(String message, String title, String[] options) {
@@ -9,41 +10,98 @@ public class launcher {
 				null);
 	}
 
+	final static Double[] solesConvA = new Double[] { 0.27, 0.25, 0.21, 39.32, 361.01 };
+
+	final static	String[] currencyOptions = { "De Soles a Dólar", "De Soles a Euro", "De Soles a Libras", "De Soles a Yen",
+			"De soles a Won Coreano", "De Dólar a Soles", "De Euro a Soles", "De Libras a Soles", "De Yen a Soles",
+			"De Won Coreano a Soles" };
+
+
 	static void handleCurrencyConversion() {
-		String[] optionsCoins = { "De Soles a Dólar", "De Soles a Euro", "De Soles a Libras", "De Soles a Yen",
-				"De soles a Won Coreano", "De Dólar a Soles", "De Euro a Soles", "De Libras a Soles", "De Yen a Soles",
-				"De Won Coreano a Soles" };
+
 
 		String optionCurrency = showOptionsDialog("Elija la moneda a que deseas convertir tu dinero", null,
-				optionsCoins);
+				currencyOptions);
 		if (optionCurrency != null) {
-			convertCurrency(optionCurrency);
+			try {
+				convertCurrency(optionCurrency);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
-	static void convertCurrency(String optionCurrency)
-	{
-		double currentCurrency =
-				Double.parseDouble(JOptionPane.showInputDialog("Ingresa la cantidad de dinero que deseas convertir:"))
-				;
-		switch (optionCurrency) {
-		case "De Soles a Dólar": {
-			String message =  "$"+ (currentCurrency * 0.27)  + " Dólares";
+	static void convertCurrency(String currencyOption)  {
+		String optinSelected = JOptionPane.showInputDialog("Ingresa la cantidad de dinero que deseas convertir:");
+
+		Double currentCurrency = (double) 0;
+		try {
+			currentCurrency = Double.valueOf(optinSelected);
+			String message = "";
+			Double valueConverted  = (double) 0;
+			if(currencyOption.equals(currencyOptions[0])) {
+				valueConverted =  (currentCurrency * solesConvA[0]);
+				message = "Tienes $"+ valueConverted + " Dolares";
+			}
+			if(currencyOption.equals(currencyOptions[1])) {
+				valueConverted =   (currentCurrency * solesConvA[1]);
+				message = "Tienes $"+  valueConverted + " Euros";
+			}
+			if(currencyOption.equals(currencyOptions[2])) {
+				valueConverted =   (currentCurrency * solesConvA[2]);
+				message = "Tienes $"+ valueConverted + " Libras";
+			}
+			if(currencyOption.equals(currencyOptions[3])) {
+				valueConverted =  (currentCurrency * solesConvA[3]);
+
+				message = "Tienes $"+ valueConverted+ " Yens";
+			}
+			if(currencyOption.equals(currencyOptions[4])) {
+				valueConverted =  (currentCurrency * solesConvA[4]);
+
+				message = "Tienes $"+ valueConverted + " Won Coreano";
+
+			}
+			if(currencyOption.equals(currencyOptions[5])) {
+				valueConverted =  (currentCurrency / solesConvA[0]);
+				message = "Tienes S/"+ valueConverted + " Soles";
+
+			}
+			if(currencyOption.equals(currencyOptions[6])) {
+				valueConverted =  (currentCurrency / solesConvA[1]);
+				message = "Tienes S/"+ valueConverted + " Soles";
+
+
+			}
+			if(currencyOption.equals(currencyOptions[7])) {
+				valueConverted =  (currentCurrency / solesConvA[2]);
+				message = "Tienes S/"+ valueConverted + " Soles";
+			}
+			if(currencyOption.equals(currencyOptions[8])) {
+				valueConverted =   (currentCurrency / solesConvA[3]);
+				message = "Tienes S/"+ valueConverted + " Soles";
+
+			}
+			if(currencyOption.equals(currencyOptions[9])) {
+				valueConverted =  (currentCurrency / solesConvA[4]);
+				message = "Tienes S/"+ valueConverted + " Soles";
+			}
+
 			getCurrencyMessage(message);
-		break;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Valor no válido");
 		}
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + optionCurrency);
-		}
-	}
 
+
+	}
 
 	public static void getCurrencyMessage(String message) {
-		JOptionPane.showMessageDialog(null, "Tienes " + message  );
+		JOptionPane.showMessageDialog(null, "Tienes " + message);
 	}
 
 	public static void main(String[] args) {
 
+		System.out.println(currencyOptions[0]);
 		String[] options = { "Conversor de Moneda", "Conversion de Temperatura" };
 
 		String optionSelMain = showOptionsDialog("Seleccione una opción de conversión", "Menu", options);
