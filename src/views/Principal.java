@@ -1,12 +1,10 @@
 package views;
 
-
 import javax.swing.JOptionPane;
 
 import models.Currency;
 
-
-public class Launcher {
+public class Principal {
 
 	final static Currency dolar = new Currency(0.27, "$", "Dólares");
 	static Currency euro = new Currency(0.25, "€", "Euros");
@@ -168,4 +166,5 @@ public class Launcher {
 		initLauncher();
 
 	}
+
 }
