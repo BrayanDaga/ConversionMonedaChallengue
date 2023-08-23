@@ -41,4 +41,6 @@ public class Currency {
 		return "Tienes S/. " + value + " Soles";
 	}
 
+	
+
 }
